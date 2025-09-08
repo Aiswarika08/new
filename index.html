@@ -1,0 +1,202 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WasteWise</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="bg-blue-900 text-white p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">WasteWise</h1>
+    <nav>
+      <button id="logoutBtn" class="hidden bg-red-600 hover:bg-red-700 px-3 py-1 rounded">Logout</button>
+    </nav>
+  </header>
+
+  <main class="flex-grow max-w-5xl mx-auto p-4 w-full">
+    <!-- Login Screen -->
+    <section id="loginSection" class="max-w-md mx-auto bg-white p-6 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4 text-center text-blue-900">Login</h2>
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label for="username" class="block font-semibold mb-1">Username</label>
+          <input
+            type="text"
+            id="username"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            placeholder="Enter username"
+          />
+        </div>
+        <div>
+          <label for="userType" class="block font-semibold mb-1">User Type</label>
+          <select
+            id="userType"
+            required
+            class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          >
+            <option value="" disabled selected>Select user type</option>
+            <option value="ministry">Ministry / Employer</option>
+            <option value="citizen">Citizen</option>
+            <option value="employee">Employee / Worker</option>
+          </select>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-900 text-white font-semibold py-2 rounded hover:bg-blue-800 transition"
+        >
+          Login
+        </button>
+      </form>
+    </section>
+
+    <!-- Ministry / Employer Dashboard -->
+    <section id="ministrySection" class="hidden bg-white p-6 rounded shadow-md">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-900">Ministry / Employer Dashboard</h2>
+
+      <div class="space-y-6">
+        <!-- Workers Monitoring -->
+        <div>
+          <h3 class="font-semibold text-lg mb-2 border-b border-gray-300 pb-1">Workers Monitoring</h3>
+          <table class="w-full text-left border border-gray-300 rounded">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="p-2 border-b border-gray-300">Worker Name</th>
+                <th class="p-2 border-b border-gray-300">Work Type</th>
+                <th class="p-2 border-b border-gray-300">Credits Earned</th>
+                <th class="p-2 border-b border-gray-300">Status</th>
+              </tr>
+            </thead>
+            <tbody id="workersTableBody">
+              <!-- dynamically filled -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Waste Segregation Plants Records -->
+        <div>
+          <h3 class="font-semibold text-lg mb-2 border-b border-gray-300 pb-1">Waste Segregation Plants Records</h3>
+          <ul id="plantsList" class="list-disc list-inside text-gray-700">
+            <!-- dynamically filled -->
+          </ul>
+        </div>
+
+        <!-- Products from Recycled Waste -->
+        <div>
+          <h3 class="font-semibold text-lg mb-2 border-b border-gray-300 pb-1">Products from Recycled Waste</h3>
+          <ul id="productsList" class="list-disc list-inside text-gray-700">
+            <!-- dynamically filled -->
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Citizen Dashboard -->
+    <section id="citizenSection" class="hidden bg-white p-6 rounded shadow-md max-w-md mx-auto">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-900 text-center">Citizen Dashboard</h2>
+
+      <div class="mb-6">
+        <h3 class="font-semibold mb-2">Donate Waste / Recyclable Items</h3>
+        <form id="donateForm" class="space-y-3">
+          <div>
+            <label for="donateItem" class="block font-semibold mb-1">Item Description</label>
+            <input
+              type="text"
+              id="donateItem"
+              required
+              placeholder="E.g. Plastic bottles, old newspapers"
+              class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
+          <div>
+            <label for="donateQuantity" class="block font-semibold mb-1">Quantity (approx.)</label>
+            <input
+              type="number"
+              id="donateQuantity"
+              min="1"
+              required
+              placeholder="E.g. 5"
+              class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-blue-900 text-white font-semibold py-2 rounded hover:bg-blue-800 transition"
+          >
+            Donate & Earn Credits
+          </button>
+        </form>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-2">Your Credit Points</h3>
+        <p id="citizenCredits" class="text-lg font-bold text-green-700">0</p>
+      </div>
+
+      <div class="mt-6">
+        <h3 class="font-semibold mb-2">Redeem Credits for Recyclable Goods</h3>
+        <ul id="recyclableGoodsList" class="list-disc list-inside text-gray-700">
+          <!-- dynamically filled -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- Employee / Worker Dashboard -->
+    <section id="employeeSection" class="hidden bg-white p-6 rounded shadow-md max-w-3xl mx-auto">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-900 text-center">Employee / Worker Dashboard</h2>
+
+      <div class="mb-6">
+        <h3 class="font-semibold mb-2">Work Summary</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+          <div class="bg-green-100 p-4 rounded shadow">
+            <p class="text-gray-700 font-semibold">Work Done</p>
+            <p id="workDone" class="text-xl font-bold text-green-700">0</p>
+          </div>
+          <div class="bg-yellow-100 p-4 rounded shadow">
+            <p class="text-gray-700 font-semibold">Work Available</p>
+            <p id="workAvailable" class="text-xl font-bold text-yellow-700">0</p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded shadow">
+            <p class="text-gray-700 font-semibold">Credits Received</p>
+            <p id="creditsReceived" class="text-xl font-bold text-blue-700">0</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-2">Choose Your Work Preference</h3>
+        <form id="workPreferenceForm" class="space-y-3 max-w-md mx-auto">
+          <label class="inline-flex items-center">
+            <input type="checkbox" name="workType" value="Waste Collection" class="form-checkbox" />
+            <span class="ml-2">Waste Collection</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="checkbox" name="workType" value="Waste Segregation" class="form-checkbox" />
+            <span class="ml-2">Waste Segregation</span>
+          </label>
+          <label class="inline-flex items-center">
+            <input type="checkbox" name="workType" value="Fertilizer Making" class="form-checkbox" />
+            <span class="ml-2">Fertilizer Making</span>
+          </label>
+          <button
+            type="submit"
+            class="w-full bg-blue-900 text-white font-semibold py-2 rounded hover:bg-blue-800 transition"
+          >
+            Save Preferences
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-blue-900 text-white text-center p-3">
+    &copy; 2025 WasteWise
+  </footer>
+
+ <script src="script.js"></script>
+</body>
+</html>
